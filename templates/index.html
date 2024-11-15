@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Monitor de Produtos Vinted</title>
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+    <h1>Monitor de Produtos Vinted</h1>
+    <div id="products"></div>
+
+    <script>
+        async function loadItems() {
+            const response = await fetch('/api/items');
+            const data = await response.json();
+            const container = document.getElementById('products');
+            container.innerHTML = "";
+
+            for (const brand in data) {
+                const brandContainer = document.createElement('div');
+                brandContainer.classList.add('brand-container');
+                brandContainer.innerHTML = `<h2>${brand}</h2>`;
+
+                data[brand].forEach(item => {
+                    const itemDiv = document.createElement('div');
+                    itemDiv.classList.add('item');
+                    itemDiv.innerHTML = `
+                        <p><strong>${item.title}</strong></p>
+                        <p>Price: ${item.price}</p>
+                        <a href="${item.link}" target="_blank">View on Vinted</a>
+                    `;
+                    brandContainer.appendChild(itemDiv);
+                });
+                container.appendChild(brandContainer);
+            }
+        }
+
+        loadItems();
+        setInterval(loadItems, 10000);  // Atualiza a cada 10 segundos
+    </script>
+</body>
+</html>
