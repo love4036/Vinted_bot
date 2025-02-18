@@ -40,7 +40,7 @@ async function startBumpLoop() {
 
     // After all tokens have sent the bump command, wait 2 hours and 15 minutes (8100000ms)
     console.log(`All accounts have sent the bump. Waiting 2 hours and 15 minutes before restarting...`);
-    await new Promise((resolve) => setTimeout(resolve, 8100000));
+    await new Promise((resolve) => setTimeout(resolve, 81));
   }
 }
 
